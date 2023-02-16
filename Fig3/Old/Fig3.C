@@ -18,28 +18,28 @@ double funzione4(double *x, double *par) {
 	return (-bb+TMath::Sqrt(bb*bb-4*(cc-x[0])*aa) ) / (2*aa);
 }
 
-void Fig3_Tagged() {	
+void Fig3() {	
 
 	int maximumplot = 3e7;
 	double minimumplot = 1;
 
-	TFile f1("Inputs/OutputRoot_Test_BX_6Y.root","read");
+	TFile f1("OutputRoot_Test_BX_6Y.root","read");
 	TH1D* h1 = (TH1D*)f1.Get("PseudoDataset_Tag")->Clone();
 	
-	TFile f2("Inputs/OutputRoot_Test_Ideal_6Y.root","read");
+	TFile f2("OutputRoot_Test_Ideal_6Y.root","read");
 	TH1D* h2 = (TH1D*)f2.Get("PseudoDataset_Tag")->Clone();
 
-	TFile f3("Inputs/OutputRoot_Test_Baseline_6Y.root","read");
+	TFile f3("OutputRoot_Test_Baseline_6Y.root","read");
 	TH1D* h3 = (TH1D*)f3.Get("PseudoDataset_Tag")->Clone();
 
-	TFile f4("Inputs/OutputRoot_Test_Worst_6Y.root","read");
+	TFile f4("OutputRoot_Test_Worst_6Y.root","read");
 	TH1D* h4 = (TH1D*)f4.Get("PseudoDataset_Tag")->Clone();
 
 	TH1D* h_Be7 = (TH1D*)f1.Get("PDFs/Be7;2")->Clone();
 	TH1D* h_pep = (TH1D*)f1.Get("PDFs/pep;2")->Clone();
 	TH1D* h_CNO = (TH1D*)f1.Get("PDFs/CNO;2")->Clone();
 
-	TFile f_CNO("Inputs/Paper_PDFs_NuSol_J21v1r0-Pre0_r15_Thr300_1Y_Smoothed_2022-March.root","read");
+	TFile f_CNO("Paper_PDFs_NuSol_J21v1r0-Pre0_r15_Thr300_1Y_Smoothed_2022-March.root","read");
 	TH1D* h_N13 = (TH1D*)f_CNO.Get("h_NQE_N13")->Clone();
 	TH1D* h_O15 = (TH1D*)f_CNO.Get("h_NQE_O15")->Clone();
 
@@ -106,6 +106,8 @@ void Fig3_Tagged() {
 	h3->DrawCopy("same");
 	h4->DrawCopy("same");
 
+
+
 	/**** SOLAR NEUTRINOS ****/
 	h_Be7->SetLineColor(kRed); h_Be7->SetLineWidth(4); 
 	h_Be7->DrawCopy("same");
@@ -113,8 +115,13 @@ void Fig3_Tagged() {
 	h_pep->SetLineColor(kOrange+1); h_pep->SetLineWidth(4); 
 	h_pep->DrawCopy("same");
 
+	//h_CNO->SetLineColor(618); h_CNO->SetLineWidth(2);
+	//h_CNO->DrawCopy("same");
+
 	h_N13->Scale(30931./h_N13->Integral());
 	h_O15->Scale(23420./h_O15->Integral());
+//	h_N13->Scale(72173./h_N13->Integral());
+//	h_O15->Scale(54647./h_O15->Integral());
 
 	h_N13->SetLineColor(906); h_N13->SetLineWidth(4);
 	h_N13->DrawCopy("same");
@@ -122,20 +129,23 @@ void Fig3_Tagged() {
 	h_O15->SetLineColor(kOrange-1); h_O15->SetLineWidth(4);
 	h_O15->DrawCopy("same");
 
+
 	gStyle->SetOptStat(0);
 	c1->Update();
+
+
 	
 	// LEGEND
-	TLegend *leg1 = new TLegend(0.3,0.68,0.75,0.89,NULL,"brNDC");
+	TLegend *leg1 = new TLegend(0.4,0.68,0.75,0.89,NULL,"brNDC");
 	leg1->SetTextAlign(13);
 	leg1->SetTextSize(0.055);
 	leg1->SetBorderSize(0);
 	leg1->SetFillStyle(0);
 	leg1->SetTextFont(42);
-	leg1->AddEntry(h4,"IBD radiopurity","l");
-	leg1->AddEntry(h3,"Baseline radiopurity","l");
-	leg1->AddEntry(h2,"Ideal radiopurity","l");	
-	leg1->AddEntry(h1,"BX-like radiopurity","l");	
+	leg1->AddEntry(h4,"IBD","l");
+	leg1->AddEntry(h3,"Baseline","l");
+	leg1->AddEntry(h2,"Ideal","l");	
+	leg1->AddEntry(h1,"Borexino-like","l");	
 	leg1->Draw();
 	c1->Update();
 	
@@ -150,6 +160,10 @@ void Fig3_Tagged() {
 	leg2->AddEntry(h_N13,"^{13}N-#nu","l");	
 	leg2->AddEntry(h_O15,"^{15}O-#nu","l");
 
+
+
+
+//	leg2->AddEntry(h_CNO,"CNO #nu","l");
 	leg2->Draw();
 	
 	// upper x axis
@@ -178,11 +192,14 @@ void Fig3_Tagged() {
 
 	c1->Update();
 
-  c1->Print("Fig3_Tagged.pdf","pdf");
+	cout << funzione3(650) << endl;
+	cout << funzione3(2400) << endl;
+
+  c1->Print("Fig3.pdf","pdf");
 }
 
 #ifndef __CINT__
 int main() {
-  Fig3_Tagged();
+  Fig3();
 }
 #endif

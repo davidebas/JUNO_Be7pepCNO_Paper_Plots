@@ -127,16 +127,16 @@ void Fig3_Subtracted() {
 	c1->Update();
 
 	// LEGEND
-	TLegend *leg1 = new TLegend(0.4,0.68,0.75,0.89,NULL,"brNDC");
+	TLegend *leg1 = new TLegend(0.3,0.68,0.75,0.89,NULL,"brNDC");
 	leg1->SetTextAlign(13);
 	leg1->SetTextSize(0.055);
 	leg1->SetBorderSize(0);
 	leg1->SetFillStyle(0);
 	leg1->SetTextFont(42);
-	leg1->AddEntry(h4,"IBD","l");
-	leg1->AddEntry(h3,"Baseline","l");
-	leg1->AddEntry(h2,"Ideal","l");	
-	leg1->AddEntry(h1,"Borexino-like","l");	
+	leg1->AddEntry(h4,"IBD radiopurity","l");
+	leg1->AddEntry(h3,"Baseline radiopurity","l");
+	leg1->AddEntry(h2,"Ideal radiopurity","l");	
+	leg1->AddEntry(h1,"BX-like radiopurity","l");	
 	leg1->Draw();
 	c1->Update();
 	

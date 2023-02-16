@@ -186,7 +186,7 @@ void Fig6(){
 	f_BX_Result->Draw("same");
 
 	TGaxis *A3 = new TGaxis(Xmin,Ymax,Xmax,Ymax,Xmin, Xmax*9.87,310,"-");
-	A3->SetTitle("Exposure [kt y]");
+	A3->SetTitle("Exposure [kton y]");
 	A3->SetTitleSize(0.055);
 	A3->SetTitleOffset(0.9);
 	A3->SetLabelSize(0.055);
